@@ -1,0 +1,18 @@
+[
+    {
+        "id": "e7201763-a3d5-49c7-a604-e50313074e09",
+        "name": "Admin",
+        "email": "admin@printmaster.com",
+        "phone": "0000000000",
+        "password_hash": "scrypt:32768:8:1$icz5hOdzxZdD3kNf$4281d472fd740b090e0ad095c54b84856fce4419c08aa77b5286fa02f2ee7414d9f2e783ce04b4f1a435994f2da941e8e1b86a6df6641d770dd3d603e39caaf4",
+        "is_admin": true
+    },
+    {
+        "id": "c64289b6-2480-4002-9564-87dfd769ff8f",
+        "name": "oleh",
+        "email": "firefox.corporate@gmail.com",
+        "phone": "0987211370",
+        "password_hash": "scrypt:32768:8:1$K4FWoNNSzL1wrVPK$501d6f02f9efb367fbc3d10eb079c3d1d8d71a21b6303caab4aea7986dd994140cd2ace86a2f304ef5c7f7661bdc6be43cee580c32a7fc675ee0862824c67b27",
+        "is_admin": false
+    }
+]

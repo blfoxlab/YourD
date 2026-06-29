@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Чат Підтримки - PrintMaster{% endblock %}
+
+{% block content %}
+<section class="chat-section section">
+    <div class="container">
+        <h1>Чат підтримки</h1>
+        <div class="chat-container">
+            <div id="message-list" class="message-list">
+                <!-- Messages will be loaded here by JavaScript -->
+                <div class="message-item">
+                    <p class="message-text">Вітаємо! Чим можемо допомогти?</p>
+                    <div class="message-meta"><span>Адміністратор</span></div>
+                </div>
+            </div>
+            
+            {% if session.user %}
+            <div class="message-form-container">
+                <form id="message-form">
+                    <input type="text" id="message-input" placeholder="Введіть ваше повідомлення..." autocomplete="off" required>
+                    <button type="submit" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg>
+                    </button>
+                </form>
+            </div>
+            {% else %}
+            <div class="login-prompt">
+                <p>Будь ласка, <a href="{{ url_for('login', next=request.path) }}">увійдіть</a>, щоб надіслати повідомлення.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+    {% if session.user %}
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+    {% endif %}
+{% endblock %}

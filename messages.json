@@ -1,0 +1,54 @@
+[
+    {
+        "id": "7f504221-d89d-47a0-b711-85e7bc069621",
+        "user_id": "c64289b6-2480-4002-9564-87dfd769ff8f",
+        "author_name": "oleh",
+        "is_admin": false,
+        "text": "gg",
+        "timestamp": "2026-06-27 15:14:41"
+    },
+    {
+        "id": "4f546823-2eee-4e9d-b229-d3173d4c3b0d",
+        "user_id": "c64289b6-2480-4002-9564-87dfd769ff8f",
+        "author_name": "Система",
+        "is_admin": true,
+        "text": "Ваше замовлення #b8ce6a34 прийнято в обробку.",
+        "timestamp": "2026-06-27 15:15:16"
+    },
+    {
+        "id": "dd7324a5-fbf0-43f2-94b9-79ddb6327f58",
+        "user_id": "c64289b6-2480-4002-9564-87dfd769ff8f",
+        "author_id": "c64289b6-2480-4002-9564-87dfd769ff8f",
+        "author_name": "oleh",
+        "is_admin_sender": false,
+        "text": "рр",
+        "timestamp": "2026-06-27 15:49:09"
+    },
+    {
+        "id": "640413b1-f20c-4735-b0d7-c7eec3d75f68",
+        "user_id": "c64289b6-2480-4002-9564-87dfd769ff8f",
+        "author_id": "e7201763-a3d5-49c7-a604-e50313074e09",
+        "author_name": "Admin",
+        "is_admin_sender": true,
+        "text": "ррр",
+        "timestamp": "2026-06-27 15:56:01"
+    },
+    {
+        "id": "699db9ee-edf6-47be-925d-991eee72e020",
+        "user_id": "e7201763-a3d5-49c7-a604-e50313074e09",
+        "author_name": "Система",
+        "is_admin_sender": true,
+        "author_id": "system",
+        "text": "Ваше замовлення #6fd025aa на 'Банери' прийнято в обробку.",
+        "timestamp": "2026-06-27 16:08:46"
+    },
+    {
+        "id": "34118f22-3237-433f-8144-9309538db7c9",
+        "user_id": "e7201763-a3d5-49c7-a604-e50313074e09",
+        "author_name": "Система",
+        "is_admin_sender": true,
+        "author_id": "system",
+        "text": "Ваше замовлення #e307b009 на 'Банери' прийнято в обробку.",
+        "timestamp": "2026-06-29 10:54:49"
+    }
+]

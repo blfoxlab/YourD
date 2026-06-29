@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}Оформлення Замовлення - PrintMaster{% endblock %}
+
+{% block content %}
+<section class="order-section section">
+    <div class="container">
+        <h1>Оформлення замовлення</h1>
+        <div class="form-wizard">
+            <!-- Step Indicators -->
+            <div class="step-indicators">
+                <div class="step-indicator active" data-step="1">1. Продукція</div>
+                <div class="step-indicator" data-step="2">2. Параметри</div>
+                <div class="step-indicator" data-step="3">3. Макет</div>
+                <div class="step-indicator" data-step="4">4. Підтвердження</div>
+            </div>
+
+            <!-- Form -->
+            <form id="order-form">
+                <!-- Step 1: Product Selection -->
+                <div class="form-step active" data-step="1">
+                    <h3>Крок 1: Виберіть тип продукції</h3>
+                    <div class="form-group">
+                        <label for="product-type">Тип продукції</label>
+                        <select id="product-type" name="product_type" required>
+                            <option value="">-- Виберіть --</option>
+                            <option value="Візитки">Візитки</option>
+                            <option value="Флаєри">Флаєри та листівки</option>
+                            <option value="Банери">Банери та roll-up</option>
+                            <option value="Книги">Друк книг та брошур</option>
+                            <option value="Стікери">Наклейки та стікери</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary next-step">Далі</button>
+                </div>
+
+                <!-- Step 2: Print Parameters -->
+                <div class="form-step" data-step="2">
+                    <h3>Крок 2: Вкажіть параметри друку</h3>
+                    <div class="form-group">
+                        <label for="quantity">Тираж (кількість)</label>
+                        <input type="number" id="quantity" name="quantity" min="1" value="100" required>
+                    </div>
+                    <button type="button" class="btn btn-secondary prev-step">Назад</button>
+                    <button type="button" class="btn btn-primary next-step">Далі</button>
+                </div>
+
+                <!-- Step 3: File Upload -->
+                <div class="form-step" data-step="3">
+                    <h3>Крок 3: Завантажте ваш макет</h3>
+                    <div class="form-group">
+                       <label for="file-upload">Файл макету (PDF, AI, PSD, JPG)</label>
+                       <input type="file" id="file-upload" name="file_upload" accept=".pdf,.ai,.psd,.jpg,.jpeg,.png">
+                       <div class="drag-drop-area">
+                           <p>Перетягніть файл сюди або натисніть для вибору</p>
+                       </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary prev-step">Назад</button>
+                    <button type="button" class="btn btn-primary next-step">Далі</button>
+                </div>
+
+                <!-- Step 4: Confirmation & Comment -->
+                <div class="form-step" data-step="4">
+                    <h3>Крок 4: Коментар та підтвердження</h3>
+                    <div class="form-group">
+                        <label for="comment">Додатковий коментар</label>
+                        <textarea id="comment" name="comment" rows="4" placeholder="Вкажіть будь-які побажання, наприклад, по термінах або матеріалах..."></textarea>
+                    </div>
+                    <p>Наш менеджер зв'яжеться з вами для уточнення вартості та деталей.</p>
+                    <br>
+                    <button type="button" class="btn btn-secondary prev-step">Назад</button>
+                    <button type="submit" class="btn btn-primary">Відправити замовлення</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('order-form');
+    const nextButtons = document.querySelectorAll('.next-step');
+    const prevButtons = document.querySelectorAll('.prev-step');
+    const steps = document.querySelectorAll('.form-step');
+    const indicators = document.querySelectorAll('.step-indicator');
+    let currentStep = 1;
+
+    const updateStep = (newStep) => {
+        // Update indicator
+        indicators.forEach(ind => {
+            ind.classList.remove('active');
+            if (parseInt(ind.dataset.step) <= newStep) {
+                ind.classList.add('active');
+            }
+        });
+        
+        // Show correct form step
+        steps.forEach(step => step.classList.remove('active'));
+        document.querySelector(`.form-step[data-step="${newStep}"]`).classList.add('active');
+
+        currentStep = newStep;
+    };
+
+    nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Basic validation for current step before proceeding
+            const currentFormStep = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+            const inputs = currentFormStep.querySelectorAll('input[required], select[required]');
+            let isValid = true;
+            inputs.forEach(input => {
+                if (!input.value) {
+                    isValid = false;
+                }
+            });
+
+            if (isValid && currentStep < steps.length) {
+                updateStep(currentStep + 1);
+            } else if (!isValid) {
+                alert("Будь ласка, заповніть обов'язкові поля.");
+            }
+        });
+    });
+
+    prevButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (currentStep > 1) {
+                updateStep(currentStep - 1);
+            }
+        });
+    });
+    
+    // Handle form submission
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        
+        // NOTE: File upload is not implemented via this form submission.
+        // In a real app, you'd handle file upload separately (e.g. to a pre-signed URL)
+        // or submit as multipart/form-data. We are just sending the file name.
+        data.file_upload = formData.get('file_upload').name;
+
+        try {
+            const response = await fetch('/api/create_order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.status === 'success') {
+                alert(`Ваше замовлення #${result.order_id.substring(0, 8)} прийнято! Ми скоро зв'яжемося з вами.`);
+                window.location.href = '/cabinet';
+            } else {
+                alert(result.message || 'Сталася помилка при створенні замовлення.');
+            }
+        } catch (error) {
+            console.error('Error creating order:', error);
+            alert('Сталася помилка. Перевірте консоль.');
+        }
+    });
+
+});
+</script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}YOUR.D. — Брендинг та Друк під Ключ{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1 style="font-size: 3.8rem; text-shadow: 4px 4px 0 #4A2C1F;">БРЕНДИНГ ТА ДРУК<br>ПІД КЛЮЧ</h1>
+        <p style="font-size: 1.5rem; max-width: 700px; margin: 1.5rem auto;">
+            Повний цикл створення бренду. Від візиток до інтер'єру — все в єдиному стилі.
+        </p>
+        <div class="hero-buttons" style="margin-top: 2rem;">
+            <a href="{{ url_for('order') }}" class="btn btn-primary">Оформити замовлення</a>
+            <a href="{{ url_for('chat') }}" class="btn btn-primary" style="background: transparent; border-color: white;">Консультація</a>
+        </div>
+    </div>
+</section>
+
+<!-- Контакти -->
+<section class="contacts-section">
+    <div class="container">
+        <h2>Зв'яжіться з нами</h2>
+        <p>Ми беремо на себе весь біль брендингу та оформлення</p>
+        <div style="margin: 2rem 0; font-size: 1.2rem;">
+            <strong>Телефон:</strong> (073) 717 50 60<br>
+            <strong>Email:</strong> your.d@ukr.net<br>
+            <strong>Адреса:</strong> м. Умань, вул. Європейська, 24
+        </div>
+    </div>
+</section>
+
+<!-- Інші секції (послуги, як ми працюємо) залишив, але можеш доповнити -->
+{% endblock %}

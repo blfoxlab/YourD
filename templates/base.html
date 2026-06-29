@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}YOUR.D.{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <a href="{{ url_for('home') }}" class="logo">YOUR.D.</a>
+            
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Головна</a></li>
+                    <li><a href="{{ url_for('order') }}">Замовити</a></li>
+                    <li><a href="{{ url_for('chat') }}">Чат</a></li>
+                    {% if session.user %}
+                        <li><a href="{{ url_for('cabinet') }}">Кабінет</a></li>
+                        <li><a href="{{ url_for('logout') }}">Вийти</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('login') }}">Увійти</a></li>
+                    {% endif %}
+                    {% if session.is_admin %}
+                        <li><a href="{{ url_for('admin') }}">Адмін</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 YOUR.D. Агентція брендингу та друку. Усі права захищено.</p>
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
